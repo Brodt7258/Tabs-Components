@@ -28,6 +28,7 @@
   align-items: center;
   margin-top: 10px;
   border: 2.5px solid #931d25;
+  overflow: hidden;
 }
 .dropdown .dropdown-link {
   width: 100%;
