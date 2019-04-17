@@ -47,9 +47,9 @@ In this project, our design team has already built an HTML/CSS web page for us, 
 ### Stretch Goals
 
 * Create a Single `Tabs` component that creates all instances of `TabLink`. It will also hold the currently selected tab. 
-  * Add a `deselect` method to each the `TabItem` and `TabLink` classes. This will deselect that specific tab.
-  * Remove the code deselecting all `TabLink`s and `TabItem`s, only relying on the deselect method.
-  * `Tabs` should deselect the currently selected tab each time a new tab is selected.
+  * [x] Add a `deselect` method to each the `TabItem` and `TabLink` classes. This will deselect that specific tab.
+  * [x] Remove the code deselecting all `TabLink`s and `TabItem`s, only relying on the deselect method.
+  * [x] `Tabs` should deselect the currently selected tab each time a new tab is selected.
 * Animations. (Use the animation library of your choice)
   * [x] Get the dropdown to slide in and out, rather than just appearing and disappearing
   * Get the TabsItem text to fade in and out, or slide in and out.
