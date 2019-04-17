@@ -3,32 +3,53 @@ class Tabs {
     this.element = element;
 
     this.tabItems = [...this.element.querySelectorAll('.tabs-items .tabs-item')]
-      .map(e => new TabItem(e));
+        .reduce((obj, e) => {
+          obj[e.dataset.tab] = new TabItem(e);
+          return obj;
+        }, {});
     console.log(this.tabItems);
 
     this.tabLinks = [...this.element.querySelectorAll('.tabs-links .tabs-link')]
-      .map((e, i) => new TabLink(e, this.tabItems[i]));
+      .reduce((obj, e) => {
+        obj[e.dataset.tab] = new TabLink(e);
+        return obj;
+      }, {});
     console.log(this.tabLinks);
 
+    Object.values(this.tabLinks).forEach(e => e.element.addEventListener('click', this.select));
+
+    this.selectedTab = 0;
+  }
+
+  select = (e) => {
+    console.log(e.target.dataset.tab);
+    const link = this.tabLinks[e.target.dataset.tab];
+    console.log(link);
+    this.selectedTab = link.tabIndex;
+
+    const content = this.tabItems[link.tabIndex];
+    console.log(content);
+    console.log(this.selectedTab);
   }
 }
 
 class TabLink {
-  constructor(element, tabItem) {
+  constructor(element) {
     // Assign this.element to the passed in DOM element
     this.element = element;
     // Get the custom data attribute on the Link
     this.data = element.dataset;
+    this.tabIndex = this.data.tab;
     // Using the custom data attribute get the associated Item element
     //this.itemElement = document.body.querySelector(`div.tabs-item[data-tab='${this.data.tab}']`);
     // Using the Item element, create a new instance of the TabItem class
     //this.tabItem = new TabItem(this.itemElement);
-    this.tabItem = tabItem;
+    //this.tabItem = tabItem;
     // Add a click event listener on this instance, calling the select method on click
-    this.element.addEventListener('click', () => this.select());
+    //this.element.addEventListener('click', () => this.select());
   };
 
-  select() {
+  select = () => {
     // Get all of the elements with the tabs-link class
     // const links;
     const links = document.body.querySelectorAll('.tabs-link');
@@ -46,6 +67,7 @@ class TabItem {
   constructor(element) {
     // Assign this.element to the passed in element
     this.element = element;
+    this.tabIndex = this.element.dataset.tab;
   }
 
   select() {
