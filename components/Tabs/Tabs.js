@@ -2,6 +2,7 @@ class Tabs {
   constructor (element) {
     this.element = element;
 
+    //Instaniate TabItems and TabLinks, place each instance onto an object to easily reference later.
     this.tabItems = [...this.element.querySelectorAll('.tabs-items .tabs-item')]
         .reduce((obj, e) => {
           obj[e.dataset.tab] = new TabItem(e);
@@ -18,17 +19,22 @@ class Tabs {
 
     Object.values(this.tabLinks).forEach(e => e.element.addEventListener('click', this.select));
 
-    this.selectedTab = 0;
+    this.selectedTab = 1;
   }
 
   select = (e) => {
-    console.log(e.target.dataset.tab);
     const link = this.tabLinks[e.target.dataset.tab];
-    console.log(link);
-    this.selectedTab = link.tabIndex;
 
+    if (link.tabIndex === this.selectedTab) return; // Guard clause.  Do nothing if already on the selected tab
+
+    console.log(link);
+    
     const content = this.tabItems[link.tabIndex];
+    link.select();
+    content.select();
     console.log(content);
+    
+    this.selectedTab = link.tabIndex;
     console.log(this.selectedTab);
   }
 }
@@ -39,7 +45,7 @@ class TabLink {
     this.element = element;
     // Get the custom data attribute on the Link
     this.data = element.dataset;
-    this.tabIndex = this.data.tab;
+    this.tabIndex = parseInt(this.data.tab);
     // Using the custom data attribute get the associated Item element
     //this.itemElement = document.body.querySelector(`div.tabs-item[data-tab='${this.data.tab}']`);
     // Using the Item element, create a new instance of the TabItem class
@@ -59,7 +65,7 @@ class TabLink {
     // Add a class named "tabs-link-selected" to this link
     this.element.classList.add('tabs-link-selected');
     // Call the select method on the item associated with this link
-    this.tabItem.select();
+    //this.tabItem.select();
   }
 }
 
