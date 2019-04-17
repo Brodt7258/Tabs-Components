@@ -38,34 +38,23 @@ class Dropdown {
     this.content = this.element.querySelector('.dropdown-content');
     
     // Add a click handler to the button reference and call the toggleContent method.
-    this.button.addEventListener('click', this.toggleContent());
+    this.button.addEventListener('click', () => this.toggleContent());
+    
   }
 
   toggleContent() {
-    let open = false;
-
-    return () => {
-      if (open) {
-        TweenMax.to(this.content, 0.25, {
-          height: 0,
-          display: 'none',
-          onComplete: () => {
-            this.content.style.cssText = '';
-            this.content.classList.add('dropdown-hidden');
-          }
-        });
-      } else {
-        TweenMax.set(this.content, { height: "auto", display: 'flex' });
-        TweenMax.from(this.content, 0.4, {
-          height: 0,
-          onComplete: () => {
-            this.content.style.cssText = '';                  // There's probably no legitimate need for this?
-            this.content.classList.remove('dropdown-hidden'); // I just feel better cleaning up GSAP's residule inline styles.
-          }
-        });
-      }
-      open = !open;
-    };
+    if (this.content.classList.contains('dropdown-hidden')) {
+      TweenMax.set(this.content, { height: "auto", display: 'flex' });
+      TweenMax.from(this.content, 0.4, {
+        height: 0,
+      });
+    } else {
+      TweenMax.to(this.content, 0.25, {
+        height: 0,
+        display: 'none',
+      });
+    }
+    this.content.classList.toggle('dropdown-hidden');
   }
 }
 
