@@ -83,14 +83,19 @@
   z-index: 2;
   cursor: pointer;
 }
+.tabs .tabs-link:hover {
+  background-color: #be2530;
+}
 .tabs .tabs-link-selected {
-  border-right: 1px solid #931d25;
   color: black;
-  transition: color 0.65s;
+  transition: color 0.35s;
+}
+.tabs .tabs-link-selected:hover {
+  background-color: transparent;
 }
 .tabs .tabs-link-backer {
   position: absolute;
-  background-color: blue;
+  background-color: white;
   border-right: 1px solid #931d25;
 }
 body {

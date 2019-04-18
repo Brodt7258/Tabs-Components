@@ -22,10 +22,8 @@ class Tabs {
     this.tabLinkBacker = new TabLinkBacker(
       this.element.querySelector('.tabs-link-backer'),
       this.tabLinks[this.selectedTab].element
-      );
+    );
 
-    //this.tabLinkBacker.element.style.cssText = `width: ${200}px; height: ${100}px`
-    console.log(this.tabLinkBacker);
   }
 
   select = (e) => {
@@ -55,7 +53,6 @@ class TabLinkBacker {
   constructor (element, { offsetWidth, offsetHeight, offsetLeft, offsetTop }) {
     this.element = element;
 
-    //this.currTab = currTab;
     this.width = offsetWidth;
     this.height = offsetHeight;
     this.xPos = offsetLeft;
@@ -66,21 +63,30 @@ class TabLinkBacker {
       height: ${this.height}px;
       left: ${this.xPos}px;
       top: ${this.yPos}
-    `;
+    `;  // Place the backer behind the default tab on creation
   }
 
   slide = ({ offsetWidth, offsetHeight, offsetLeft, offsetTop }) => {
+    // Set its new destination
     this.width = offsetWidth;
     this.height = offsetHeight;
     this.xPos = offsetLeft;
     this.yPos = offsetTop;
 
-    this.element.style.cssText = `
-      width: ${this.width}px;
-      height: ${this.height}px;
-      left: ${this.xPos}px;
-      top: ${this.yPos}
-    `;
+    TweenMax.to(this.element, 0.35, {         // Animate a bouncy/sliding/fluid
+      width: this.width + 1,                  // transition to the new location
+      height: this.height,
+      left: this.xPos - 1,
+      top: this.yPos,
+      ease: Elastic.easeOut.config(0.5, 0.5)
+    });
+    TweenMax.to(this.element, 0.175, {
+      borderRadius: '70%',
+    });
+    TweenMax.to(this.element, 0.175, {
+      borderRadius: '0%',
+      delay: 0.175
+    });
   }
 }
 
