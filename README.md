@@ -53,6 +53,6 @@ In this project, our design team has already built an HTML/CSS web page for us, 
 * Animations. (Use the animation library of your choice)
   * [x] Get the dropdown to slide in and out, rather than just appearing and disappearing
   * [x] Get the TabsItem text to fade in and out, or slide in and out.
-  * Look through the LESS code and see where you can refactor using animations to achieve similar results.
-* Add styling using the LESS files.
+  * [x] Look through the LESS code and see where you can refactor using animations to achieve similar results.
+* [x] Add styling using the LESS files.
 * Remove the boxes on the top card and replace them with an image carousel. This will have to be done from scratch, and should be pretty difficult, but it uses the same techniques as the `Tabs` component. Give it a left and right button, and a number of images that scroll as the buttons are pressed.

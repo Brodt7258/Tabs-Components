@@ -31,7 +31,7 @@ class Tabs {
 
     if (link.tabIndex === this.selectedTab) return; // Guard clause.  Do nothing if already on the selected tab
     
-    const transitionDirection = getDir(oldContent, content);
+    const transitionDirection = getDir(oldContent, content); // Setup direction for slide transitions.  Defined at page bottom.
 
     oldLink.deselect(); // Deselect the previous choice
     oldContent.deselect(transitionDirection);
@@ -75,8 +75,7 @@ class TabItem {
       [dir]: '12.5%',  //`${(100 - ((this.element.offsetWidth / this.element.parentNode.offsetWidth) * 100)) / 2}%`
                       // If for some reason I didn't know its width in percent ahead of time?  Probably not needed too often.
       onComplete: () => { this.element.style.cssText = ''; }
-    });
-                 
+    });          
   }
 
   deselect = (dir) => {
@@ -93,4 +92,4 @@ class TabItem {
 
 new Tabs(document.querySelector('.tabs'));
 
-const getDir = (start, end) => start.tabIndex < end.tabIndex ? 'left' : 'right' ;
+const getDir = (start, end) => start.tabIndex < end.tabIndex ? 'left' : 'right' ; // Utility method. Calulate which way the tabItems need to slide, based on indices.
