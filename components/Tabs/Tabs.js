@@ -26,13 +26,18 @@ class Tabs {
     const link = this.tabLinks[e.target.dataset.tab],
           content = this.tabItems[link.tabIndex];
 
+    const oldLink = this.tabLinks[this.selectedTab],
+          oldContent = this.tabItems[this.selectedTab];
+
     if (link.tabIndex === this.selectedTab) return; // Guard clause.  Do nothing if already on the selected tab
     
-    this.tabLinks[this.selectedTab].deselect(); // Deselect the previous choice
-    this.tabItems[this.selectedTab].deselect();
+    const transitionDirection = getDir(oldContent, content);
+
+    oldLink.deselect(); // Deselect the previous choice
+    oldContent.deselect(transitionDirection);
 
     link.select();    // Select the new choice
-    content.select();
+    content.select(transitionDirection);
 
     this.selectedTab = link.tabIndex; // Update the current choice
   }
@@ -59,27 +64,25 @@ class TabItem {
     this.tabIndex = parseInt(this.element.dataset.tab);
   }
 
-  select() {
-    console.log('select', this.tabIndex);
+  select(dir) {
     TweenMax.set(this.element, {
       className: '-=tabs-item-hidden'
     });
     TweenMax.fromTo(this.element, 0.65,{
-      left: '100%'
+      [dir]: '100%'
     }, {
       className: '+=tabs-item-selected',
-      left: '12.5%',  //`${(100 - ((this.element.offsetWidth / this.element.parentNode.offsetWidth) * 100)) / 2}%`
+      [dir]: '12.5%',  //`${(100 - ((this.element.offsetWidth / this.element.parentNode.offsetWidth) * 100)) / 2}%`
                       // If for some reason I didn't know its width in percent ahead of time?  Probably not needed too often.
       onComplete: () => { this.element.style.cssText = ''; }
     });
                  
   }
 
-  deselect = () => {
-    console.log('deselect', this.tabIndex);
+  deselect = (dir) => {
     TweenMax.to(this.element, 0.65, { 
       className: '-=tabs-item-selected',
-      left: '-100%',
+      [dir]: '-100%',
       onComplete: () => {
         this.element.classList.add('tabs-item-hidden');
         this.element.style.cssText = '';
@@ -89,3 +92,5 @@ class TabItem {
 }
 
 new Tabs(document.querySelector('.tabs'));
+
+const getDir = (start, end) => start.tabIndex < end.tabIndex ? 'left' : 'right' ;
