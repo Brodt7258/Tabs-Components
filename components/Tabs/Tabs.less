@@ -11,7 +11,6 @@
     position: relative;
   }
   .tabs-item {
-    //display: none;
     position: absolute;
     opacity: 0;
 
@@ -23,7 +22,6 @@
     }
   }
   .tabs-item-selected {
-    //display: block;
     opacity: 1;
   }
 
@@ -31,32 +29,42 @@
     display: none;
   }
 
+
+
+
   .tabs-links {
     display: flex;
     background-color: @lambda-red;
+    position: relative;
   }
-
-
-
   .tabs-link {
     padding: 20px 25px;
     font-size: 24px;
-    background-color: @lambda-red;
+    background-color: transparent;
     border-right: 1px solid white;
     color: @white;
+    z-index: 2;
     cursor: pointer;
-    &:hover {
-      background-color: @lambda-light-red;
-    }
+    // &:hover {
+    //   //background-color: @lambda-light-red;
+    // }
   }
   .tabs-link-selected {
-    z-index: 2;
+    
     border-right: 1px solid @lambda-red;
-    background-color: @white;
+    //background-color: @white;
     color: black;
-    &:hover {
-      background-color: @white;
-    }
+    transition: color 0.65s;
+    // &:hover {
+    //   //background-color: @white;
+    // }
+  }
+
+  .tabs-link-backer {
+    position: absolute;
+    background-color: blue;
+    //z-index: 2;
+    border-right: 1px solid @lambda-red;
   }
 }
 

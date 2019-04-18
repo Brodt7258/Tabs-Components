@@ -2,24 +2,30 @@ class Tabs {
   constructor (element) {
     this.element = element;
 
-    //Instaniate TabItems and TabLinks, place each instance onto an object to easily reference later.
+    //Instantiate TabItems and TabLinks, place each instance onto an object to easily reference later.
     this.tabItems = [...this.element.querySelectorAll('.tabs-items .tabs-item')]
         .reduce((obj, e) => {
           obj[e.dataset.tab] = new TabItem(e);
           return obj;
         }, {});
-    console.log(this.tabItems);
 
     this.tabLinks = [...this.element.querySelectorAll('.tabs-links .tabs-link')]
       .reduce((obj, e) => {
         obj[e.dataset.tab] = new TabLink(e);
         return obj;
       }, {});
-    console.log(this.tabLinks);
 
     Object.values(this.tabLinks).forEach(e => e.element.addEventListener('click', this.select));
 
     this.selectedTab = 1;
+
+    this.tabLinkBacker = new TabLinkBacker(
+      this.element.querySelector('.tabs-link-backer'),
+      this.tabLinks[this.selectedTab].element
+      );
+
+    //this.tabLinkBacker.element.style.cssText = `width: ${200}px; height: ${100}px`
+    console.log(this.tabLinkBacker);
   }
 
   select = (e) => {
@@ -36,10 +42,45 @@ class Tabs {
     oldLink.deselect(); // Deselect the previous choice
     oldContent.deselect(transitionDirection);
 
-    link.select();    // Select the new choice
+    link.select();      // Select the new choice
     content.select(transitionDirection);
 
+    this.tabLinkBacker.slide(link.element);
+
     this.selectedTab = link.tabIndex; // Update the current choice
+  }
+}
+
+class TabLinkBacker {
+  constructor (element, { offsetWidth, offsetHeight, offsetLeft, offsetTop }) {
+    this.element = element;
+
+    //this.currTab = currTab;
+    this.width = offsetWidth;
+    this.height = offsetHeight;
+    this.xPos = offsetLeft;
+    this.yPos = offsetTop;
+
+    this.element.style.cssText = `
+      width: ${this.width}px;
+      height: ${this.height}px;
+      left: ${this.xPos}px;
+      top: ${this.yPos}
+    `;
+  }
+
+  slide = ({ offsetWidth, offsetHeight, offsetLeft, offsetTop }) => {
+    this.width = offsetWidth;
+    this.height = offsetHeight;
+    this.xPos = offsetLeft;
+    this.yPos = offsetTop;
+
+    this.element.style.cssText = `
+      width: ${this.width}px;
+      height: ${this.height}px;
+      left: ${this.xPos}px;
+      top: ${this.yPos}
+    `;
   }
 }
 
@@ -72,7 +113,7 @@ class TabItem {
       [dir]: '100%'
     }, {
       className: '+=tabs-item-selected',
-      [dir]: '12.5%',  //`${(100 - ((this.element.offsetWidth / this.element.parentNode.offsetWidth) * 100)) / 2}%`
+      [dir]: '12.5%', // `${(100 - ((this.element.offsetWidth / this.element.parentNode.offsetWidth) * 100)) / 2}%`
                       // If for some reason I didn't know its width in percent ahead of time?  Probably not needed too often.
       onComplete: () => { this.element.style.cssText = ''; }
     });          
@@ -92,4 +133,4 @@ class TabItem {
 
 new Tabs(document.querySelector('.tabs'));
 
-const getDir = (start, end) => start.tabIndex < end.tabIndex ? 'left' : 'right' ; // Utility method. Calulate which way the tabItems need to slide, based on indices.
+const getDir = (start, end) => start.tabIndex < end.tabIndex ? 'left' : 'right' ; // Utility method. Calculate which way the tabItems need to slide, based on indices.

@@ -72,26 +72,26 @@
 .tabs .tabs-links {
   display: flex;
   background-color: #931d25;
+  position: relative;
 }
 .tabs .tabs-link {
   padding: 20px 25px;
   font-size: 24px;
-  background-color: #931d25;
+  background-color: transparent;
   border-right: 1px solid white;
   color: #ffffff;
+  z-index: 2;
   cursor: pointer;
 }
-.tabs .tabs-link:hover {
-  background-color: #be2530;
-}
 .tabs .tabs-link-selected {
-  z-index: 2;
   border-right: 1px solid #931d25;
-  background-color: #ffffff;
   color: black;
+  transition: color 0.65s;
 }
-.tabs .tabs-link-selected:hover {
-  background-color: #ffffff;
+.tabs .tabs-link-backer {
+  position: absolute;
+  background-color: blue;
+  border-right: 1px solid #931d25;
 }
 body {
   box-sizing: border-box;
