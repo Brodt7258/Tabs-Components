@@ -50,10 +50,12 @@
   height: 300px;
   display: flex;
   justify-content: center;
-  padding-top: 60px;
+  padding: 60px;
+  position: relative;
 }
 .tabs .tabs-item {
-  display: none;
+  position: absolute;
+  opacity: 0;
   width: 75%;
 }
 .tabs .tabs-item .tabs-item-title {
@@ -62,7 +64,10 @@
   padding-bottom: 10px;
 }
 .tabs .tabs-item-selected {
-  display: block;
+  opacity: 1;
+}
+.tabs .tabs-item-hidden {
+  display: none;
 }
 .tabs .tabs-links {
   display: flex;

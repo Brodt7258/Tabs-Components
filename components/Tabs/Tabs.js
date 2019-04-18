@@ -60,11 +60,31 @@ class TabItem {
   }
 
   select() {
-    this.element.classList.add('tabs-item-selected');
+    console.log('select', this.tabIndex);
+    TweenMax.set(this.element, {
+      className: '-=tabs-item-hidden'
+    });
+    TweenMax.fromTo(this.element, 0.65,{
+      left: '100%'
+    }, {
+      className: '+=tabs-item-selected',
+      left: '12.5%',  //`${(100 - ((this.element.offsetWidth / this.element.parentNode.offsetWidth) * 100)) / 2}%`
+                      // If for some reason I didn't know its width in percent ahead of time?  Probably not needed too often.
+      onComplete: () => { this.element.style.cssText = ''; }
+    });
+                 
   }
 
-  deselect () {
-    this.element.classList.remove('tabs-item-selected');
+  deselect = () => {
+    console.log('deselect', this.tabIndex);
+    TweenMax.to(this.element, 0.65, { 
+      className: '-=tabs-item-selected',
+      left: '-100%',
+      onComplete: () => {
+        this.element.classList.add('tabs-item-hidden');
+        this.element.style.cssText = '';
+      }
+    });
   }
 }
 
