@@ -74,7 +74,7 @@ class TabLinkBacker {
     this.yPos = offsetTop;
 
     TweenMax.to(this.element, 0.35, {         // Animate a bouncy/sliding/fluid
-      width: this.width + 1,                  // transition to the new location
+      width: this.width + 2,                  // transition to the new location
       height: this.height,
       left: this.xPos - 1,
       top: this.yPos,
