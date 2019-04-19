@@ -98,6 +98,52 @@
   background-color: white;
   border-right: 1px solid #931d25;
 }
+.carousel-wrapper {
+  position: relative;
+  height: 30rem;
+}
+.carousel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: 70%;
+  transform: translate(-50%, -50%);
+}
+.slide-buttons {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.slide-buttons button {
+  font-size: 4rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.slide {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #931d25;
+  font-size: 5rem;
+}
+.slide-selected {
+  opacity: 1;
+}
+.slide-hidden {
+  display: none;
+}
 body {
   box-sizing: border-box;
   min-width: 300px;
