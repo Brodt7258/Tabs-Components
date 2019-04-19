@@ -10,6 +10,7 @@
 	<body>
 		<script defer="defer" src="./components/Dropdown/Dropdown.js"></script>
 		<script defer="defer" src="./components/Tabs/Tabs.js"></script>
+		<script defer="defer" src="./components/Carousel/Carousel.js"></script>
 		
 		<div class="header-container">
 			<div class="dropdown">
@@ -23,17 +24,17 @@
 			<img src="./lambda_logo_light_small.png" class="header" />
 		</div>
 		
-		<section class="section carousel-wrapper">
-			<ul class="carousel">
-				<li class="slide slide-selected">Slide 1</li>
-				<li class="slide slide-hidden">Slide 2</li>
-				<li class="slide slide-hidden">Slide 3</li>
-				<li class="slide slide-hidden">Slide 4</li>
-				<li class="slide slide-hidden">Slide 5</li>
+		<section class="section carousel">
+			<ul class="slide-wrapper">
+				<li class="slide slide-selected" data-slide="1">Slide 1</li>
+				<li class="slide slide-hidden" data-slide="2">Slide 2</li>
+				<li class="slide slide-hidden" data-slide="3">Slide 3</li>
+				<li class="slide slide-hidden" data-slide="4">Slide 4</li>
+				<li class="slide slide-hidden" data-slide="5">Slide 5</li>
 			</ul>
 			<div class="slide-buttons">
-				<button><i class="fas fa-chevron-left"></i></button>
-				<button><i class="fas fa-chevron-right"></i></button>
+				<button data-dir="left"><i class="fas fa-chevron-left"></i></button>
+				<button data-dir="right"><i class="fas fa-chevron-right"></i></button>
 			</div>
 		</section>
 
