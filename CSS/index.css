@@ -109,6 +109,9 @@
   height: 100%;
   width: 70%;
   transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .slide-buttons {
   position: absolute;
@@ -124,19 +127,18 @@
   border: none;
   outline: none;
   cursor: pointer;
+  z-index: 3;
 }
 .slide {
   position: absolute;
   height: 100%;
   width: 100%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #931d25;
   font-size: 5rem;
+  z-index: 2;
 }
 .slide-selected {
   opacity: 1;

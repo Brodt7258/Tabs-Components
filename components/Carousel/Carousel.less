@@ -10,6 +10,9 @@
   height: 100%;
   width: 70%;
   transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .slide-buttons {
@@ -26,6 +29,7 @@
     border: none;
     outline: none;
     cursor: pointer;
+    z-index: 3;
   }
 }
 
@@ -33,14 +37,14 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  //top: 50%;
+  //transform: translate(50%, 50%);
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: @lambda-red;
   font-size: 5rem;
+  z-index: 2;
 }
 
 .slide-selected {

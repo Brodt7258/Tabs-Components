@@ -15,19 +15,19 @@ class Carousel {
   }
 
   left = () => {
-    this.slides[this.selectedSlide].deselect();
+    this.slides[this.selectedSlide].deselect('left');
 
     this.selectedSlide <= 1 ? this.selectedSlide = this.slideQuantity : this.selectedSlide--;
     
-    this.slides[this.selectedSlide].select();
+    this.slides[this.selectedSlide].select('right');
   }
 
   right = () => {
-    this.slides[this.selectedSlide].deselect();
+    this.slides[this.selectedSlide].deselect('right');
 
     this.selectedSlide >= this.slideQuantity ? this.selectedSlide = 1 : this.selectedSlide++;
 
-    this.slides[this.selectedSlide].select();
+    this.slides[this.selectedSlide].select('left');
   }
 }
 
@@ -37,14 +37,32 @@ class Slide {
     this.slideIndex = parseInt(this.element.dataset.slide);
   }
 
-  select = () => {
+  select = (dir) => {
     this.element.classList.add('slide-selected');
-    this.element.classList.remove('slide-hidden');
+    TweenMax.set(this.element, {
+      className: '-=slide-hidden',
+    });
+    TweenMax.fromTo(this.element, 0.6, {
+      [dir]: '200%'
+    }, {
+      [dir]: '0%',
+      ease: Elastic.easeOut.config(0.3, 0.4),
+      onComplete: () => {
+        this.element.style.cssText = '';
+      }
+    });
   }
 
-  deselect = () => {
-    this.element.classList.add('slide-hidden');
+  deselect = (dir) => {
     this.element.classList.remove('slide-selected');
+    TweenMax.to(this.element, 0.5, {
+      [dir]: '200%',
+      ease: Power4.easeOut,
+      onComplete: () => {
+        this.element.style.cssText = '';
+        this.element.classList.add('slide-hidden');
+      }
+    });
   }
 }
 
