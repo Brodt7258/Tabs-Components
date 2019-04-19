@@ -82,6 +82,7 @@
   color: #ffffff;
   z-index: 2;
   cursor: pointer;
+  transition: background-color 0.35s;
 }
 .tabs .tabs-link:hover {
   background-color: #be2530;
@@ -102,7 +103,7 @@
   position: relative;
   height: 30rem;
 }
-.slide-wrapper {
+.carousel .slide-wrapper {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -113,23 +114,7 @@
   justify-content: center;
   align-items: center;
 }
-.slide-buttons {
-  position: absolute;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: space-between;
-  align-items: center;
-}
-.slide-buttons button {
-  font-size: 4rem;
-  background: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  z-index: 3;
-}
-.slide {
+.carousel .slide-wrapper .slide {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -140,11 +125,60 @@
   font-size: 5rem;
   z-index: 2;
 }
-.slide-selected {
+.carousel .slide-wrapper .slide-selected {
   opacity: 1;
 }
-.slide-hidden {
+.carousel .slide-wrapper .slide-hidden {
   display: none;
+}
+.carousel .slide-buttons {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.carousel .slide-buttons button {
+  font-size: 4rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  z-index: 3;
+}
+.carousel .slide-progress {
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 5%;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  align-items: center;
+}
+.carousel .slide-progress .progress-tile {
+  height: 70%;
+  width: 15%;
+  background-color: transparent;
+  border-radius: 1rem;
+  border: solid 2px black;
+  cursor: pointer;
+  transition: background-color 0.35s;
+}
+.carousel .slide-progress .progress-tile:hover {
+  background-color: #be2530;
+}
+.carousel .slide-progress .progress-tile-selected:hover {
+  background-color: transparent;
+}
+.carousel .slide-progress .progress-tracker {
+  position: absolute;
+  border-radius: 1rem;
+  background-color: black;
+  opacity: 0.5;
 }
 body {
   box-sizing: border-box;
