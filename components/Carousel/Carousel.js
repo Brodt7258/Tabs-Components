@@ -19,7 +19,19 @@ class Carousel {
       this.selectedSlide,
       this.goTo
     );
+
+    // Autoscroll through carousel when not experiencing user interaction.
+    this.timer = this.autoSlide();
+
+    this.element.addEventListener('mouseenter', () => {
+      clearInterval(this.timer);
+    });
+    this.element.addEventListener('mouseleave', () => {
+      this.timer = this.autoSlide();
+    });
   }
+
+  autoSlide = () => setInterval(() => {this.right()}, 6000);
 
   // So, these two methods are awful and should be rolled into a single, less-redundant method.
   // They felt clever when I initially wrote them. Then they grew. Now they're almost identical.
