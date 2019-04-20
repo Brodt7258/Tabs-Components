@@ -23,11 +23,12 @@
   width: 100%;
   position: absolute;
   background-color: #ffffff;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   margin-top: 10px;
   border: 2.5px solid #931d25;
+  overflow: hidden;
 }
 .dropdown .dropdown-link {
   width: 100%;
@@ -41,9 +42,6 @@
   color: #ffffff;
   background-color: #931d25;
 }
-.dropdown .dropdown-hidden {
-  display: none;
-}
 .tabs {
   width: 100%;
 }
@@ -52,10 +50,12 @@
   height: 300px;
   display: flex;
   justify-content: center;
-  padding-top: 60px;
+  padding: 60px;
+  position: relative;
 }
 .tabs .tabs-item {
-  display: none;
+  position: absolute;
+  opacity: 0;
   width: 75%;
 }
 .tabs .tabs-item .tabs-item-title {
@@ -64,31 +64,121 @@
   padding-bottom: 10px;
 }
 .tabs .tabs-item-selected {
-  display: block;
+  opacity: 1;
+}
+.tabs .tabs-item-hidden {
+  display: none;
 }
 .tabs .tabs-links {
   display: flex;
   background-color: #931d25;
+  position: relative;
 }
 .tabs .tabs-link {
   padding: 20px 25px;
   font-size: 24px;
-  background-color: #931d25;
+  background-color: transparent;
   border-right: 1px solid white;
   color: #ffffff;
+  z-index: 2;
   cursor: pointer;
+  transition: background-color 0.35s;
 }
 .tabs .tabs-link:hover {
   background-color: #be2530;
 }
 .tabs .tabs-link-selected {
-  z-index: 2;
-  border-right: 1px solid #931d25;
-  background-color: #ffffff;
   color: black;
+  transition: color 0.35s;
 }
 .tabs .tabs-link-selected:hover {
-  background-color: #ffffff;
+  background-color: transparent;
+}
+.tabs .tabs-link-backer {
+  position: absolute;
+  background-color: white;
+  border-right: 1px solid #931d25;
+}
+.carousel {
+  position: relative;
+  height: 30rem;
+}
+.carousel .slide-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: 70%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.carousel .slide-wrapper .slide {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #931d25;
+  font-size: 5rem;
+  z-index: 2;
+}
+.carousel .slide-wrapper .slide-selected {
+  opacity: 1;
+}
+.carousel .slide-wrapper .slide-hidden {
+  display: none;
+}
+.carousel .slide-buttons {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.carousel .slide-buttons button {
+  font-size: 4rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  z-index: 3;
+}
+.carousel .slide-progress {
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 5%;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  align-items: center;
+}
+.carousel .slide-progress .progress-tile {
+  height: 70%;
+  width: 15%;
+  background-color: transparent;
+  border-radius: 1rem;
+  border: solid 2px black;
+  cursor: pointer;
+  transition: background-color 0.35s;
+}
+.carousel .slide-progress .progress-tile:hover {
+  background-color: #be2530;
+}
+.carousel .slide-progress .progress-tile-selected:hover {
+  background-color: transparent;
+}
+.carousel .slide-progress .progress-tracker {
+  position: absolute;
+  border-radius: 1rem;
+  background-color: black;
+  opacity: 0.5;
 }
 body {
   box-sizing: border-box;

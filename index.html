@@ -3,15 +3,19 @@
 	<head>
 		<title>Advanced Components</title>
 		<link rel="stylesheet" href="./CSS/index.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
 	</head>
 	<body>
 		<script defer="defer" src="./components/Dropdown/Dropdown.js"></script>
 		<script defer="defer" src="./components/Tabs/Tabs.js"></script>
+		<script defer="defer" src="./components/Carousel/Carousel.js"></script>
 		
 		<div class="header-container">
 			<div class="dropdown">
 				<div class="dropdown-button">Dropdown</div>
-				<div class="dropdown-content dropdown-hidden">
+				<div class="dropdown-content">
 					<a class="dropdown-link" href="https://lambdaschool.com/" target="_blank">Lambda</a>
 					<a class="dropdown-link" href="https://www.google.com/" target="_blank">Google</a>
 					<a class="dropdown-link" href="https://developer.mozilla.org/en-US/" target="_blank">MDN</a>
@@ -19,6 +23,21 @@
 			</div>
 			<img src="./lambda_logo_light_small.png" class="header" />
 		</div>
+		
+		<section class="section carousel">
+			<ul class="slide-wrapper">
+				<li class="slide slide-selected" data-slide="1">Slide 1</li>
+				<li class="slide slide-hidden" data-slide="2">Slide 2</li>
+				<li class="slide slide-hidden" data-slide="3">Slide 3</li>
+				<li class="slide slide-hidden" data-slide="4">Slide 4</li>
+				<li class="slide slide-hidden" data-slide="5">Slide 5</li>
+			</ul>
+			<div class="slide-buttons">
+				<button data-dir="left"><i class="fas fa-chevron-left"></i></button>
+				<button data-dir="right"><i class="fas fa-chevron-right"></i></button>
+			</div>
+			<ul class="slide-progress"></ul>
+		</section>
 
 		<div class="section">
 			<div class="box">
@@ -34,10 +53,13 @@
 		<div class="section">
 				<div class="tabs">
 					<div class="tabs-links">
+						<div class="tabs-link-backer"></div>
 						<div class="tabs-link tabs-link-selected" data-tab="1">Tab 1</div>
-						<div class="tabs-link" data-tab="2">Tab 2</div>
+						<div class="tabs-link " data-tab="2">Tab 2</div>
 						<div class="tabs-link" data-tab="3">Tab 3</div>
 						<div class="tabs-link" data-tab="4">Tab 4</div>
+						<div class="tabs-link" data-tab="5">Tab 5</div>
+						<div class="tabs-link" data-tab="6">Tab 6</div>
 					</div>
 					<div class="tabs-items">
 						<div class="tabs-item tabs-item-selected" data-tab="1">
@@ -46,7 +68,7 @@
 								Don’t Panic.
 							</div>
 						</div>
-						<div class="tabs-item" data-tab="2">
+						<div class="tabs-item tabs-item-hidden" data-tab="2">
 							<div class="tabs-item-title">Quote 2</div>
 							<div class="tabs-item-description">
 								Curiously enough, the only thing that went through the mind of the bowl of petunias as it fell was Oh no, not again. Many
@@ -54,7 +76,7 @@
 								nature of the Universe than we do now.
 							</div>
 						</div>
-						<div class="tabs-item" data-tab="3">
+						<div class="tabs-item tabs-item-hidden" data-tab="3">
 							<div class="tabs-item-title">Quote 3</div>
 							<div class="tabs-item-description">
 								It is known that there are an infinite number of worlds, simply because there is an infinite amount of space for them to
@@ -64,8 +86,24 @@
 								you may meet from time to time are merely the products of a deranged imagination.
 							</div>
 						</div>
-						<div class="tabs-item" data-tab="4">
+						<div class="tabs-item tabs-item-hidden" data-tab="4">
 							<div class="tabs-item-title">Quote 4</div>
+							<div class="tabs-item-description">
+								There is a theory which states that if ever anyone discovers exactly what the Universe is for and why it is here, it will
+								instantly disappear and be replaced by something even more bizarre and inexplicable. There is another theory which states
+								that this has already happened.
+							</div>
+						</div>
+						<div class="tabs-item tabs-item-hidden" data-tab="5">
+							<div class="tabs-item-title">Quote 5</div>
+							<div class="tabs-item-description">
+								There is a theory which states that if ever anyone discovers exactly what the Universe is for and why it is here, it will
+								instantly disappear and be replaced by something even more bizarre and inexplicable. There is another theory which states
+								that this has already happened.
+							</div>
+						</div>
+						<div class="tabs-item tabs-item-hidden" data-tab="6">
+							<div class="tabs-item-title">Quote 6</div>
 							<div class="tabs-item-description">
 								There is a theory which states that if ever anyone discovers exactly what the Universe is for and why it is here, it will
 								instantly disappear and be replaced by something even more bizarre and inexplicable. There is another theory which states

@@ -1,28 +1,54 @@
+
 class Dropdown {
   constructor(element) {
     
-    // Assign this.element to the dropdown element
-    this.element;
+    this.element = element;
     
-    // Get the element with the ".dropdown-button" class found in the dropdown element (look at the HTML for context)
-    this.button = this.element.querySelector();
+    this.button = this.element.querySelector('.dropdown-button');
     
-    // assign the reference to the ".dropdown-content" class found in the dropdown element
-    this.content;
-    
-    // Add a click handler to the button reference and call the toggleContent method.
-    this.button.addEventListener('click', () => {
+    this.content = this.element.querySelector('.dropdown-content');
+    this.content.addEventListener('mouseenter', () => clearTimeout(this.timer));  // If they're hovering in the menu, don't auto-close it on them.
+    this.content.addEventListener('mouseleave', () => this.setupAutoClose(1000)); // If they move away from the menu, auto-close it shortly after.
 
-    })
+    this.button.addEventListener('click', this.toggleContent);
+    this.open = false;
+    this.timer = {};
   }
 
-  toggleContent() {
-    
-    // Toggle the ".dropdown-hidden" class off and on
-    this.content;
+  toggleContent = () => {
+    if (!this.open) {
+      this.animOpen();
+      this.setupAutoClose(3500);
+    } else {
+      this.animClose();
+      clearTimeout(this.timer);
+    }
+  }
+
+  setupAutoClose(t) {
+    this.timer = setTimeout(this.animClose, t);
+  }
+
+  animOpen = () => {
+    TweenMax.set(this.content, { 
+      height: "auto",
+      display: 'flex'
+    });
+    TweenMax.from(this.content, 0.4, {
+      height: 0,
+    });
+    this.open = true;
+  }
+
+  animClose = () => {
+    TweenMax.to(this.content, 0.25, {
+      height: 0,
+      display: 'none',
+    });
+    this.open = false;
   }
 }
 
 
 // Nothing to do here, just study what the code is doing and move on to the Dropdown class
-let dropdowns = document.querySelectorAll('.dropdown').forEach( dropdown => new Dropdown(dropdown));
+document.querySelectorAll('.dropdown').forEach(dropdown => new Dropdown(dropdown));

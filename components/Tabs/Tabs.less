@@ -1,14 +1,18 @@
 .tabs {
   width: 100%;
+
+
   .tabs-items {
     width: 100%;
     height: 300px;
     display: flex;
     justify-content: center;
-    padding-top: 60px;
+    padding: 60px;
+    position: relative;
   }
   .tabs-item {
-    display: none; 
+    position: absolute;
+    opacity: 0;
 
     width: 75%;
     .tabs-item-title {
@@ -18,34 +22,43 @@
     }
   }
   .tabs-item-selected {
-    display: block;
+    opacity: 1;
   }
+
+  .tabs-item-hidden {
+    display: none;
+  }
+
+
 
   .tabs-links {
     display: flex;
     background-color: @lambda-red;
+    position: relative;
   }
-
   .tabs-link {
     padding: 20px 25px;
     font-size: 24px;
-    background-color: @lambda-red;
+    background-color: transparent;
     border-right: 1px solid white;
     color: @white;
+    z-index: 2;
     cursor: pointer;
+    transition: background-color 0.35s;
     &:hover {
       background-color: @lambda-light-red;
     }
   }
   .tabs-link-selected {
-    z-index: 2;
-    border-right: 1px solid @lambda-red;
-    background-color: @white;
     color: black;
+    transition: color 0.35s;
     &:hover {
-      background-color: @white;
+      background-color: transparent;
     }
   }
+  .tabs-link-backer {
+    position: absolute;
+    background-color: white;
+    border-right: 1px solid @lambda-red;
+  }
 }
-
-

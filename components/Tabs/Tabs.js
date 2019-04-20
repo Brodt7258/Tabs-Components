@@ -1,62 +1,142 @@
+class Tabs {
+  constructor (element) {
+    this.element = element;
+
+    //Instantiate TabItems and TabLinks, place each instance onto an object to easily reference later.
+    this.tabItems = [...this.element.querySelectorAll('.tabs-items .tabs-item')]
+        .reduce((obj, e) => {
+          obj[e.dataset.tab] = new TabItem(e);
+          return obj;
+        }, {});
+
+    this.tabLinks = [...this.element.querySelectorAll('.tabs-links .tabs-link')]
+      .reduce((obj, e) => {
+        obj[e.dataset.tab] = new TabLink(e);
+        return obj;
+      }, {});
+
+    Object.values(this.tabLinks).forEach(e => e.element.addEventListener('click', this.select));
+
+    this.selectedTab = 1;
+
+    this.tabLinkBacker = new TabLinkBacker(
+      this.element.querySelector('.tabs-link-backer'),
+      this.tabLinks[this.selectedTab].element
+    );
+
+  }
+
+  select = (e) => {
+    const link = this.tabLinks[e.target.dataset.tab],
+          content = this.tabItems[link.tabIndex];
+
+    const oldLink = this.tabLinks[this.selectedTab],
+          oldContent = this.tabItems[this.selectedTab];
+
+    if (link.tabIndex === this.selectedTab) return; // Guard clause.  Do nothing if already on the selected tab
+    
+    const transitionDirection = getDir(oldContent, content); // Setup direction for slide transitions.  Defined at page bottom.
+
+    oldLink.deselect(); // Deselect the previous choice
+    oldContent.deselect(transitionDirection);
+
+    link.select();      // Select the new choice
+    content.select(transitionDirection);
+
+    this.tabLinkBacker.slide(link.element);
+
+    this.selectedTab = link.tabIndex; // Update the current choice
+  }
+}
+
+class TabLinkBacker {
+  constructor (element, { offsetWidth, offsetHeight, offsetLeft, offsetTop }) {
+    this.element = element;
+
+    this.width = offsetWidth;
+    this.height = offsetHeight;
+    this.xPos = offsetLeft;
+    this.yPos = offsetTop;
+
+    this.element.style.cssText = `
+      width: ${this.width}px;
+      height: ${this.height}px;
+      left: ${this.xPos}px;
+      top: ${this.yPos}
+    `;  // Place the backer behind the default tab on creation
+  }
+
+  slide = ({ offsetWidth, offsetHeight, offsetLeft, offsetTop }) => {
+    // Set its new destination
+    this.width = offsetWidth;
+    this.height = offsetHeight;
+    this.xPos = offsetLeft;
+    this.yPos = offsetTop;
+
+    TweenMax.to(this.element, 0.35, {         // Animate a bouncy/sliding/fluid
+      width: this.width + 2,                  // transition to the new location
+      height: this.height,
+      left: this.xPos - 1,
+      top: this.yPos,
+      ease: Elastic.easeOut.config(0.5, 0.5)
+    });
+    TweenMax.to(this.element, 0.175, {
+      borderRadius: '70%',
+    });
+    TweenMax.to(this.element, 0.175, {
+      borderRadius: '0%',
+      delay: 0.175
+    });
+  }
+}
 
 class TabLink {
   constructor(element) {
-    // Assign this.element to the passed in DOM element
-    // this.element;
-    
-    // Get the custom data attribute on the Link
-    // this.data;
-    
-    // Using the custom data attribute get the associated Item element
-    // this.itemElement;
-    
-    // Using the Item element, create a new instance of the TabItem class
-    // this.tabItem;
-    
-    // Add a click event listener on this instance, calling the select method on click
-
+    this.element = element;
+    this.tabIndex = parseInt(this.element.dataset.tab);
   };
 
-  select() {
-    // Get all of the elements with the tabs-link class
-    // const links;
+  select = () => {
+    this.element.classList.add('tabs-link-selected');
+  }
 
-    // Using a loop or the forEach method remove the 'tabs-link-selected' class from all of the links
-    // Array.from(links).forEach();
-
-    // Add a class named "tabs-link-selected" to this link
-    // this.element;
-    
-    // Call the select method on the item associated with this link
-
+  deselect () {
+    this.element.classList.remove('tabs-link-selected');
   }
 }
 
 class TabItem {
   constructor(element) {
-    // Assign this.element to the passed in element
-    // this.element;
+    this.element = element;
+    this.tabIndex = parseInt(this.element.dataset.tab);
   }
 
-  select() {
-    // Select all ".tabs-item" elements from the DOM
-    // const items;
+  select(dir) {
+    TweenMax.set(this.element, {
+      className: '-=tabs-item-hidden'
+    });
+    TweenMax.fromTo(this.element, 0.65,{
+      [dir]: '100%'
+    }, {
+      className: '+=tabs-item-selected',
+      [dir]: '12.5%', // `${(100 - ((this.element.offsetWidth / this.element.parentNode.offsetWidth) * 100)) / 2}%`
+                      // If for some reason I didn't know its width in percent ahead of time?  Probably not needed too often.
+      onComplete: () => { this.element.style.cssText = ''; }
+    });          
+  }
 
-    // Remove the class "tabs-item-selected" from each element
-    
-    // Add a class named "tabs-item-selected" to this element
-    //this.element;
+  deselect = (dir) => {
+    TweenMax.to(this.element, 0.65, { 
+      className: '-=tabs-item-selected',
+      [dir]: '-100%',
+      onComplete: () => {
+        this.element.classList.add('tabs-item-hidden');
+        this.element.style.cssText = '';
+      }
+    });
   }
 }
 
-/* START HERE: 
+new Tabs(document.querySelector('.tabs'));
 
-- Select all classes named ".tabs-link" and assign that value to the links variable
-
-- With your selection in place, now chain a .forEach() method onto the links variable to iterate over the DOM NodeList
-
-- In your .forEach() method's callback function, return a new instance of TabLink and pass in each link as a parameter
-
-*/
-
-links = document.querySelectorAll();
+const getDir = (start, end) => start.tabIndex < end.tabIndex ? 'left' : 'right' ; // Utility method. Calculate which way the tabItems need to slide, based on indices.
